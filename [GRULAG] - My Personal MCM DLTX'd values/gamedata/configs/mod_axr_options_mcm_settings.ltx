@@ -1,0 +1,147 @@
+![mcm]
+
+;	ZCP SETTINGS
+;	ZCP POPULATION
+        SMR/smr_amain/monster_pop_factor = 0.45
+        SMR/smr_amain/stalker_pop_factor = 0.25
+;	ZCP LOOT		
+        SMR/smr_loot/ammo_amount         = 0.1
+        SMR/smr_loot/ammo_chance         = 10
+        SMR/smr_loot/meds_chance         = 5
+        SMR/smr_loot/npc_chance          = 1
+
+        SMR/smr_loot/repair_minor_chance = 1
+        SMR/smr_loot/useful_chance       = 1
+;	ZCP SQUADS
+        SMR/smr_mutants/squad_size       = 1.2
+        SMR/smr_mutants/squad_size_variance = 1 ;0.4
+
+        SMR/smr_stalkers/squad_size      = 1.2
+        SMR/smr_stalkers/squad_size_variance = 2
+
+		SMR/smr_stalkers/random_stalkers_chance = 20
+
+;	BEEFS NPC ANOMALY
+        beef_npc_anomaly/companion_chance = 0
+        beef_npc_anomaly/companion_setting = 1
+        beef_npc_anomaly/effect_radius   = 50
+        beef_npc_anomaly/important_npc_chance = 0
+        beef_npc_anomaly/important_npc_setting = 1
+        beef_npc_anomaly/other_npc_chance = 0.01
+        beef_npc_anomaly/other_npc_setting = 2
+
+        better_stats_bars/position       = justify
+
+        exo/battery_chance               = 0.2
+
+        gggf/gotta_go_fast_sprint        = 1.1
+		
+        glowsticks/loot_chance           = 0.1
+
+        item_artefact/mutant_part_condition_min = 5
+
+;	OUTFIT DROP CHANCES
+        outfitdrop/helmet_chance         = 25
+        outfitdrop/helmet_exo_chance     = 5
+        outfitdrop/helmet_heavy_chance   = 10
+        outfitdrop/helmet_light_chance   = 20
+        outfitdrop/helmet_medium_chance  = 15
+        outfitdrop/outfit_exo_chance     = 5
+        outfitdrop/outfit_heavy_chance   = 10
+        outfitdrop/outfit_light_chance   = 20
+        outfitdrop/outfit_medium_chance  = 15
+        outfitdrop/parts_chance          = 5
+		
+        perk_based_artefacts/timed_degradation = 0.2
+        perk_based_artefacts/treasure_chance = 10
+		
+        smooth_prog/tier1                = 1
+        smooth_prog/tier2                = 1.5
+        smooth_prog/tier3                = 2
+        smooth_prog/wpn_upgr_mult        = 1
+
+        supgrades/drop                   = 20
+
+        trader_destockifier/enable       = true
+        trader_destockifier/max_ammo_percent = 20
+        trader_destockifier/max_backpacks = 3
+        trader_destockifier/max_explosives = 1
+        trader_destockifier/max_food     = 6
+        trader_destockifier/max_guns     = 0
+        trader_destockifier/max_handguns = 0
+        trader_destockifier/max_heal     = 6
+        trader_destockifier/max_helmets  = 0
+        trader_destockifier/max_knives   = 4
+        trader_destockifier/max_mags     = 0
+        trader_destockifier/max_outfits  = 0
+        trader_destockifier/max_repair   = 14
+        trader_destockifier/max_weapon_attachments = 8
+        trader_destockifier/randomize    = true
+        trader_destockifier/randomize_deviation = 100
+        trader_destockifier/sell_only_guns_ammo = false
+		
+        wpo/degradation                  = 2
+
+        yasc/enableNotifications         = false
+		
+		mcm/mcm_log/enable               = false
+		
+        advanced_stamina_system/blood_loss_limit_modifier = 0.4
+        advanced_stamina_system/debug_mode = false
+        advanced_stamina_system/enable_blood_loss_limit = true
+        advanced_stamina_system/enable_material_drain = true
+        advanced_stamina_system/enable_satiety_limit = true
+        advanced_stamina_system/enable_sleep_drain = true
+        advanced_stamina_system/enable_stamina_speed_modifier = true
+        advanced_stamina_system/enable_thirst_drain = true
+        advanced_stamina_system/enable_uphill_drain = true
+        advanced_stamina_system/enable_uphill_speed_modifier = true
+        advanced_stamina_system/material_drain_modifier = 0.4
+        advanced_stamina_system/satiety_limit_modifier = 0.4
+        advanced_stamina_system/sleep_drain_modifier = 0.4
+        advanced_stamina_system/stamina_speed_modifier_modifier = 0.4
+        advanced_stamina_system/thirst_drain_modifier = 0.4
+        advanced_stamina_system/uphill_drain_modifier = 0.4
+        advanced_stamina_system/uphill_speed_modifier_modifier = 0.4		
+		
+		targetID/nameID                  = true
+        targetID/rankID                  = true
+        targetID/talkName                = true
+        targetID/timeID                  = true
+		
+		skill_system/exp_multiplier_endurance = 0.60
+        skill_system/exp_multiplier_strength = 0.40
+ 
+![options]
+
+        alife/dynamic_news/random_msg_news = false
+		alife/dynamic_news/loot_news     = false
+        alife/dynamic_news/message_duration = 15
+        alife/dynamic_news/cycle_of_companions_news = 600
+        alife/dynamic_news/cycle_of_random_news = 600
+        alife/dynamic_news/cycle_of_special_news = 600
+        alife/dynamic_news/cycle_of_task_news = 600											   
+        gameplay/general/corpse_min_dist = 100
+
+        other/discord                    = false
+        other/quicksave_cnt              = 20
+
+        sound/general/music_volume       = 0.1
+
+        alife/general/dynamic_relations  = true		
+
+		
+;GRAPHICS SETTINGS
+;	SETTINGS > VISUAL > ADVANCED > GRASS
+        video/advanced/detail_density    = 0.75
+        video/advanced/detail_height     = 1.2
+        video/advanced/framelimit        = 90
+		video/player/animations          = false
+
+;rs_vis_distance (max 1.5)
+        video/advanced/vis_distance      = 1.2
+
+;	SETTINGS > VISUAL > WEATHER
+        video/weather/cloudy_period      = 6
+        video/weather/partly_occurrence  = 2
+        video/weather/partly_period      = 6
