@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<!--
+	Devices
+-->
+
+<string_table>
+
+	<string id="st_pda_name">
+		<text>PDA (Common)</text>
+	</string>
+	
+	<string id="st_pda_unco">
+		<text>PDA (Uncommon)</text>
+	</string>
+
+	<string id="st_pda_rare">
+		<text>PDA (Rare)</text>
+	</string>
+
+</string_table>
