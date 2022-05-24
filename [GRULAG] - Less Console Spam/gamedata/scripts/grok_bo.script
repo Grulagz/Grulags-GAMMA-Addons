@@ -124,17 +124,17 @@ function monster_on_before_hit(monster,shit,bone_id)
 	end
 	
 	cqc_mult = 1
-	mutant_mult		= 0.90
+	mutant_mult		= 0.85
 	ammo_mult		= 0.85
 	spec_monster_mult	= 1.00
 	bone_mult		= 1.00
 
-	-- printf("///////////   Mutant Hit registered: GBO v1.6.6   //////////////////")
-	-- printf('%s about to be hit by %s in bone %s', monster and monster:name(), shit and shit.draftsman and shit.draftsman:name(), bone_id)
+	----printf("///////////   Mutant Hit registered: GBO v1.6.6   //////////////////")
+	----printf('%s about to be hit by %s in bone %s', monster and monster:name(), shit and shit.draftsman and shit.draftsman:name(), bone_id)
 
 	if (string.match(sec, "knife")) then
-		cqc_mult = 8
-		-- printf('Close quarter combat hit detected')
+		cqc_mult = 3
+		----printf('Close quarter combat hit detected')
 	end
 
 	local wpn_id = wpn:id()
@@ -184,7 +184,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 	end
 
  	if ammo_section == "ammo_11.43x23_hydro"  or ammo_section == "ammo_11.43x23_hydro_bad"  then
-		ammo_mult = 1.25
+		ammo_mult = 1.15
 	end
 
  	if ammo_section == "ammo_11.43x23_fmj"  or ammo_section == "ammo_11.43x23_fmj_bad"  then
@@ -209,7 +209,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 			barrel_condition = 1
 		end
 
-		barrel_condition_corrected = barrel_condition * 1.5
+		barrel_condition_corrected = ( 130 - ( 1.12 * barrel_condition ) ) * ( barrel_condition * 1.12 ) / 100
 
 		if barrel_condition_corrected > 1 then
 			barrel_condition_corrected = 1
@@ -222,9 +222,23 @@ function monster_on_before_hit(monster,shit,bone_id)
 	-- /// mutants body parts multipliers ///
 	if string.find(monster:name(), "giant") then
 		spec_monster_mult = 2.00
+		
+		if ammo_mult >= 1 then
+			ammo_mult = ammo_mult * 1.3
+		end
+		
+		if ammo_section == "ammo_12x70_buck" or ammo_section == "ammo_12x70_buck_bad" or 
+	    ammo_section == "ammo_20x70_buck" or ammo_section == "ammo_23x75_shrapnel" then
+			ammo_mult = 1.014
+		end
+		
+		if ammo_section == "ammo_357_hp_mag" or ammo_section == "ammo_357_hp_mag_bad" then
+			ammo_mult = 2.10
+		end
+		
 		if (bone_id == 1) then
 			bone_mult = 2.50
-			-- printf("Critical Hit!")
+			----printf("Critical Hit!")
 		end
 	end
 
@@ -232,7 +246,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.85
 		if (bone_id == 33 or bone_id == 24 or bone_id == 25 or bone_id == 23 or bone_id == 28) then
 			bone_mult = 2.00
-			-- printf("Critical Hit!")
+			----printf("Critical Hit!")
 		end
 	end
 
@@ -244,7 +258,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.85
 		if bone_id == 14 then
 			bone_mult = 1.40
-			-- printf("Critical Hit!")
+			----printf("Critical Hit!")
 		end
 	end
 
@@ -252,7 +266,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.85
 		if bone_id == 14 then
 			bone_mult = 1.60
-			-- printf("Critical Hit!")
+			----printf("Critical Hit!")
 		end
 	end
 
@@ -267,7 +281,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.80
 		if bone_id == 12 then
 			bone_mult = 2.00
-			-- printf("Critical Hit!")
+			--printf("Critical Hit!")
 		end
 	end
 
@@ -275,7 +289,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.95
 		if bone_id == 4 or bone_id == 5 then
 			bone_mult = 2.00
-			-- printf("Critical Hit!")
+			--printf("Critical Hit!")
 		end
 	end
 
@@ -284,7 +298,7 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.85
 		if bone_id == 25 or bone_id == 26 or bone_id == 28 or bone_id == 23 then
 			bone_mult = 1.50
-			-- printf("Critical Hit!")
+			--printf("Critical Hit!")
 		end
 	end
 
@@ -293,13 +307,13 @@ function monster_on_before_hit(monster,shit,bone_id)
 		spec_monster_mult = 0.65
 		if (bone_id == 12 or bone_id == 13) then
 			bone_mult = 2.00
-			-- printf("Critical Hit!")
+			--printf("Critical Hit!")
 		end
 	end
 
-	shit.power = shit.power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * mutant_mult * ammo_mult * spec_monster_mult * bone_mult * cqc_mult
+	shit.power = shit.power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * mutant_mult * ammo_mult * spec_monster_mult * bone_mult * cqc_mult * barrel_condition_corrected
 
-	-- printf("Barrel condition: %s, GBO output damage: %s", barrel_condition, shit.power)
+	--printf("Barrel condition: %s, GBO output damage: %s", barrel_condition, shit.power)
 	return
 end
 
@@ -341,8 +355,8 @@ function npc_on_before_hit(npc,shit,bone_id)
 		return
 	end
 
-	-- printf("///////////   Stalker Hit registered: GBO v1.6.6  //////////////////")
-	-- printf('%s about to be hit by %s in bone %s', npc and npc:name(), shit and shit.draftsman and shit.draftsman:name(), bone_id)
+	--printf("///////////   Stalker Hit registered: GBO v1.6.6  //////////////////")
+	--printf('%s about to be hit by %s in bone %s', npc and npc:name(), shit and shit.draftsman and shit.draftsman:name(), bone_id)
 	
 --////////////// DATA PARSING OF HELL - A BONES AND BOOLETS TALE //////////////
 
@@ -362,6 +376,7 @@ function npc_on_before_hit(npc,shit,bone_id)
 	local k_ap = ini_sys:r_float_ex(ammo_section, "k_ap") or 0
 	local k_hit = ini_sys:r_float_ex(ammo_section, "k_hit") or 1
 	local air_res = ini_sys:r_float_ex(ammo_section, "k_air_resistance") or 0.05
+	local wm_size = ini_sys:r_float_ex(ammo_section, "wm_size") or 0.05
 	local npc_pos = npc:position()
 	local shooter_pos = shooter:position()
 	local dist = npc_pos:distance_to(shooter_pos)
@@ -386,7 +401,7 @@ function npc_on_before_hit(npc,shit,bone_id)
 			barrel_condition = 1
 		end
 
-		barrel_condition_corrected = barrel_condition * 1.12
+		barrel_condition_corrected = ( 130 - ( 1.12 * barrel_condition ) ) * ( barrel_condition * 1.12 ) / 100
 
 		if barrel_condition_corrected > 1 then
 			barrel_condition_corrected = 1
@@ -398,20 +413,14 @@ function npc_on_before_hit(npc,shit,bone_id)
 
 --	/////// AMMO SPECIFIC BONES REDIRECTION //////
 
--- Snipers wet dreams, redirects snipers ammo to torso if hands, forearms or upperarms are hit. Also disables legmeta on snipers.
+-- Disables legmeta on snipers.
 
 	if (ammo_section == "ammo_7.92x33_ap" or ammo_section == "ammo_7.92x33_ap_bad" or ammo_section == "ammo_7.92x33_fmj" or ammo_section == "ammo_7.92x33_fmj_bad" or
 	ammo_section == "ammo_7.62x54_7h1" or ammo_section == "ammo_7.62x54_7h1_bad" or ammo_section == "ammo_7.62x54_ap" or ammo_section == "ammo_7.62x54_ap_bad" or
-	ammo_section == "ammo_7.62x54_7h14" or ammo_section == "ammo_7.62x54_7h14_bad" or ammo_section == "ammo_12.7x55_fmj" or ammo_section == "ammo_12.7x55_fmj_bad" or
-	ammo_section == "ammo_12.7x55_ap" or ammo_section == "ammo_12.7x55_ap_bad" or ammo_section == "ammo_magnum_300" or ammo_section == "ammo_magnum_300_bad" or
+	ammo_section == "ammo_7.62x54_7h14" or ammo_section == "ammo_7.62x54_7h14_bad" or
+	ammo_section == "ammo_magnum_300" or ammo_section == "ammo_magnum_300_bad" or
 	ammo_section == "ammo_50_bmg" or ammo_section == "ammo_50_bmg_bad" or ammo_section == "ammo_gauss" or ammo_section == "ammo_gauss_bad" or
-	sec == "wpn_l96a1" or sec == "wpn_mk14" or sec == "wpn_remington700" or sec == "wpn_m40_cw" or sec == "wpn_wa2000" ) then
-		if (bone_id == 21 or bone_id == 34 or bone_id == 35 or bone_id == 36 or bone_id == 22 or bone_id == 23) then
-			bone_id = 12
-			sniper_bad_bone_shit_reduce = 0.9
-			-- printf("Sniper hit, redirecting to torso")
-		end
-		
+	sec == "wpn_l96a1" or sec == "wpn_mk14" or sec == "wpn_remington700" or sec == "wpn_m40_cw" or sec == "wpn_wa2000" ) then	
 		leg_meta_sniper_null = 0
 	end
 	
@@ -421,7 +430,7 @@ function npc_on_before_hit(npc,shit,bone_id)
 	    ammo_section == "ammo_knife1" or  ammo_section == "ammo_knife2" or  ammo_section == "ammo_knife3" or  ammo_section == "ammo_knife4" or  ammo_section == "ammo_knife5" or 
 	    ammo_section == "ammo_knife_1" or ammo_section == "ammo_knife_2" or ammo_section == "ammo_knife_3" or ammo_section == "ammo_knife_4" or ammo_section == "ammo_knife_5") then
 		bone_id = 12
-		-- printf("Knife hit, redirecting to torso")
+		--printf("Knife hit, redirecting to torso")
 	end
 	
 
@@ -456,7 +465,7 @@ function npc_on_before_hit(npc,shit,bone_id)
 -- In case npc didn't get shot already in this bone, we store the default bone armor in the table.
 
 	if custom_bone_value[custom_bone_id] then
-		-- printf("Custom bone found. Loading custom_bone values")
+		--printf("Custom bone found. Loading custom_bone values")
 	else
 
 --		 /////// save bone damage multiplier ///////
@@ -467,12 +476,12 @@ function npc_on_before_hit(npc,shit,bone_id)
 -- get bone profile
 
 		local npc_viz = npc:get_visual_name()
-		-- printf("NPC visual model: %s",npc_viz)
+		--printf("NPC visual model: %s",npc_viz)
 
 		if not ini_capture:section_exist(npc_viz) then
-			---- printf("NPC model doesn't have a bone profile, loading exolight config")
+			----printf("NPC model doesn't have a bone profile, loading exolight config")
 			npc_viz = "actors\\stalker_bandit\\stalker_band_ha"
-			---- printf(npc_viz)
+			----printf(npc_viz)
 		end
 
 		local npc_armor_path = ini_capture:r_string(npc_viz,"model_path")	
@@ -509,9 +518,9 @@ function npc_on_before_hit(npc,shit,bone_id)
 --////////////// ACTUAL INTERESTING MATH PART ABOUT BALLISTICS //////////////
 
 
-	---- printf("// Ammo data :")
-	-- printf('%s shot with %s, Weapon power= %s, AP power= %s, Hit multiplier= %s, Air res= %s, Distance= %s m, Barrel condition: %s', ammo_section, sec, wpn_hit_power, k_ap, k_hit, air_res, dist, barrel_condition)
-	-- printf('Bone hit= %s, Bone damage mult= %s, Bone AP scale= %s, Bone hit fraction= %s, Bone armor= %s', custom_bone_name, custom_bone_dmg[custom_bone_id], custom_bone_ap[custom_bone_id], custom_bone_hf[custom_bone_id], custom_bone_value[custom_bone_id])
+	----printf("// Ammo data :")
+	--printf('%s shot with %s, Weapon power= %s, AP power= %s, Hit multiplier= %s, Air res= %s, Distance= %s m, Barrel condition: %s', ammo_section, sec, wpn_hit_power, k_ap, k_hit, air_res, dist, barrel_condition)
+	--printf('Bone hit= %s, Bone damage mult= %s, Bone AP scale= %s, Bone hit fraction= %s, Bone armor= %s', custom_bone_name, custom_bone_dmg[custom_bone_id], custom_bone_ap[custom_bone_id], custom_bone_hf[custom_bone_id], custom_bone_value[custom_bone_id])
 
 	local custom_bone_armor = custom_bone_value[custom_bone_id]
 	local custom_bone_dmg_mult = custom_bone_dmg[custom_bone_id]
@@ -549,8 +558,16 @@ function npc_on_before_hit(npc,shit,bone_id)
 		custom_bone_value[custom_bone_id] = new_bone_armor
 		if k_ap > new_bone_armor then -- if bullet damaged armor enough and pen with reduced power
 			shit.power = shit.power * custom_bone_hitfraction
+			fx = particles_object("anomaly2\\effects\\body_tear_blood_01")
+			pos = npc:bone_position(custom_bone_name)
+			pos.z = pos.z - 0.45
+			fx:play_at_pos(pos)
 		else
-			shit.power = 0.025 * shit.power * custom_bone_hitfraction -- residual concussion damage if bullet didn't damage armor enough
+			shit.power = 0.025 * shit.power * custom_bone_hitfraction * wm_size * 45 -- residual concussion damage if bullet didn't damage armor enough, the bigger the ammo the bigger the residual damages
+			fx = particles_object("hit_fx\\hit_metal_0" .. math.random(0,3))
+			pos = npc:bone_position(custom_bone_name)
+			pos.z = pos.z - 0.45
+			fx:play_at_pos(pos)
 		end
 	else
 		custom_bone_value[custom_bone_id] = custom_bone_armor
@@ -558,7 +575,7 @@ function npc_on_before_hit(npc,shit,bone_id)
 
 	life_remove = npc.health - shit.power
 
-	-- printf("Real AP power= %s, Bone armor after hit= %s, Damages inflicted= %s, Remaining health= %s", k_ap, custom_bone_value[custom_bone_id], shit.power, life_remove)
+	--printf("Real AP power= %s, Bone armor after hit= %s, Damages inflicted= %s, Remaining health= %s", k_ap, custom_bone_value[custom_bone_id], shit.power, life_remove)
 	npc:set_health_ex(life_remove)
 	shit.power = 0.0001
 end
