@@ -14,6 +14,7 @@ Goals:
 - Make "Rare" parts more rarer, and more valuable.
 - Make "Very Rare" parts very rare, and more valuable.
 - Make Meats less valuable (due to being radiated and raw) (Value reduced on all meats by around about half) (Meat rarities weren't really touched)... yet..?
+- Halves, and in some cases more than halves the values of pelts.
 
 What this addon will do;
 
