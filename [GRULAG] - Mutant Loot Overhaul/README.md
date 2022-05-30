@@ -20,6 +20,8 @@ What this addon will do;
 
 Increase difficulty and make hunting for high-tier game more rewarding, while making the most common loot from mutants a little less valuable. (So you need more of it to get rich)
 
+In addition, this also carries across the original changes of the "Rarer Corpse Loot" version i made where i reduced the drop rate of medicines and other misc valuables to be less crazy from mutant drops.
+
 
 
 
